@@ -9,7 +9,7 @@ body{
 }
 .button-menu{
       background-color: rgba(245, 245, 245, 0.04);
-      border-radius: 1.5rem;
+      border-radius: 1rem;
       font-size: medium;
       width: 12rem;
       height: 3.5rem;
@@ -21,7 +21,7 @@ body{
 }
 .button-menu:hover{
       background-color: rgba(245, 245, 245, 0.397);
-      border-radius: 1.5rem;
+      border-radius: 1rem;
       font-size: large;
       width: 12rem;
       height: 6rem;
@@ -38,7 +38,7 @@ body{
       box-sizing: content-box;
       display: flex;
       justify-content: space-evenly;
-      border-radius: 2rem;
+      border-radius: 1.5rem;
       flex-direction: column;
 }
 .title{
@@ -46,4 +46,48 @@ body{
       font-size: xx-large;
       box-sizing: content-box;
       align-self: center;
+      background-color: rgba(245, 245, 245, 0.1);
+      padding: 1rem;
+      border-radius: 4rem;
+}
+a{
+      align-self: center;
+}
+.button-back{
+      background-color: rgba(245, 245, 245, 0.04);
+      border-radius: 10rem;
+      font-size: large;
+      width: 1.5rem;
+      height: 2rem;
+      box-sizing: content-box;
+      border-color: rgba(245, 245, 245, 0.293);
+      box-shadow: 0 2px;
+      position: fixed;
+}
+.button-back:hover{
+      background-color: rgba(245, 245, 245, 0.3);
+      border-radius: 10rem;
+      font-size: large;
+      width: 1.5rem;
+      height: 2rem;
+      box-sizing: content-box;
+      border-color: rgba(245, 245, 245, 0.3);
+      box-shadow: 0 4px;
+      position: fixed;
+}
+.history{
+      box-sizing: content-box;
+      display: flex;
+      overflow: auto;
+      justify-content: space-evenly;
+      border-radius: 1.5rem;
+      flex-direction: column;
+      padding: 1rem;
+      height: 80vh;
+      background-color: rgba(245, 245, 245, 0.1);
+}
+li{
+      font-size: large;
+      padding-bottom: 3rem;
+      list-style: none;
 }

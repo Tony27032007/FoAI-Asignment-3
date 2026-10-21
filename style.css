@@ -78,16 +78,47 @@ a{
 .history{
       box-sizing: content-box;
       display: flex;
-      overflow: auto;
-      justify-content: space-evenly;
+      overflow-y: scroll;
+      justify-content: flex-start;
       border-radius: 1.5rem;
       flex-direction: column;
       padding: 1rem;
       height: 80vh;
       background-color: rgba(245, 245, 245, 0.1);
 }
-li{
+.history-button{
       font-size: large;
-      padding-bottom: 3rem;
-      list-style: none;
+      background-color: transparent;
+      border: none;
+}
+.history-obj{
+      box-sizing: content-box;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 1.5rem;
+      flex-direction: row;
+      background-color: purple;
+      text-decoration: none;
+      height: 10vh;
+}
+.his-div{
+      justify-content: space-between;
+      border-radius: 1.5rem;
+      flex-direction: row;
+      padding-bottom: 2rem;
+      height: auto;
+      align-items: center;
+      animation: reveal 1s ease-in-out both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+}
+@keyframes reveal {
+      from {
+            opacity: 0;
+            transform: translateY(3rem);
+      } 
+      to {
+            opacity: 1;
+            transform: translateY(0);
+      }
 }

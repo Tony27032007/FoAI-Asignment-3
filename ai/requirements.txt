@@ -1,0 +1,7 @@
+fastapi==0.115.12
+httpx==0.28.1
+datasets==3.5.0
+scikit-learn==1.6.1
+accelerate==1.6.0
+transformers==4.51.3
+uvicorn[standard]==0.34.2

@@ -1,0 +1,28 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ai/Dockerfile
+    environment:
+      MODEL_DIR: /models/legal-bert
+      QWEN_URL: http://qwen:11434
+      QWEN_MODEL: qwen2.5:14b-instruct-q4_K_M
+      INFERENCE_BATCH_SIZE: 8
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./ai/models:/models
+      - ./ai/huggingface-cache:/root/.cache/huggingface
+    depends_on:
+      - qwen
+    restart: unless-stopped
+
+  qwen:
+    image: ollama/ollama:0.6.8
+    environment:
+      OLLAMA_KEEP_ALIVE: 24h
+    volumes:
+      - ./ai/ollama-models:/root/.ollama
+    expose:
+      - "11434"
+    restart: unless-stopped

@@ -1,0 +1,12 @@
+.git
+.gitignore
+node_modules
+ai/huggingface-cache
+ai/models
+ai/ollama-models
+*.html
+*.js
+*.css
+*.png
+manifest.json
+package.json

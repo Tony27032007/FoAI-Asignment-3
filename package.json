@@ -2,8 +2,15 @@
   "name": "foai-assignment-3",
   "version": "1.0.0",
   "private": true,
-  "type" : "module",
+  "type": "module",
   "scripts": {
-    "start": "npx --yes http-server . -p 8080"
+    "start": "node server.js",
+    "ai:up": "docker compose up --build -d",
+    "ai:train": "docker compose run --rm api python -m ai.train && docker compose restart api",
+    "ai:pull-qwen": "docker compose exec qwen ollama pull qwen2.5:14b-instruct-q4_K_M",
+    "ai:up:nvidia": "docker compose -f compose.yaml -f compose.nvidia.yaml up --build -d",
+    "ai:train:nvidia": "docker compose -f compose.yaml -f compose.nvidia.yaml run --rm api python -m ai.train && docker compose -f compose.yaml -f compose.nvidia.yaml restart api",
+    "ai:down": "docker compose down",
+    "ai:down:nvidia": "docker compose -f compose.yaml -f compose.nvidia.yaml down"
   }
 }

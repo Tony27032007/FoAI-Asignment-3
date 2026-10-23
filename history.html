@@ -1,40 +1,19 @@
+<!doctype html>
 <html>
 <head>
-<link rel="stylesheet" href="/style.css">
-<script src="script.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>History - T&amp;C Flagger</title>
+      <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-      <a href="hello.html"><button class="button-back">&#8592</button></a>
-      <div class="menu">
-            <h1 class="title" style="width: 60vw; height: 20vh; align-self: center; align-content: center; text-align: center;">History</h1>
-            <div class="history">
-                  <div class="his-div">
-                        <a class="history-obj" href="hello.html">
-                              <button class="history-button">History 1</button>
-                              <button class="history-button">&#8594</button>
-                        </a>
-                  </div>
-                  <div class="his-div">
-                        <a class="history-obj" href="hello.html">
-                              <button class="history-button">History 2</button>
-                              <button class="history-button">&#8594</button>
-                        </a>
-                  </div>
-                  <div class="his-div">
-                        <a class="history-obj" href="hello.html">
-                              <button class="history-button">History 3</button>
-                              <button class="history-button">&#8594</button>
-                        </a>
-                  </div>
-                  <div class="his-div">
-                        <a class="history-obj" href="hello.html">
-                              <button class="history-button">History 4</button>
-                              <button class="history-button">&#8594</button>
-                        </a>
-                  </div>
-            </div>
-                  
-      </div>
+<a href="hello.html" class="back-link"><span class="button-back" aria-hidden="true">&#8592;</span><span class="visually-hidden">Back</span></a>
+      <main class="page-content">
+            <h1 class="title">History</h1>
+            <p id="history-status" class="status-message" role="status"></p>
+            <div id="history-list" class="history" aria-live="polite"></div>
+      </main>
+      <script src="storage.js"></script>
+      <script src="history.js"></script>
 </body>
 </html>

@@ -1,0 +1,6 @@
+node_modules/
+ai/huggingface-cache/
+ai/models/
+ai/ollama-models/
+__pycache__/
+*.py[cod]

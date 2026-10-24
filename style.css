@@ -6,38 +6,41 @@ body{
       overflow: hidden;
       box-sizing: border-box;
       background:
-            radial-gradient(ellipse at 15% 10%, rgba(105, 132, 170, 0.22), transparent 55%),
-            linear-gradient(145deg, #202b3b 0%, #29394b 52%, #202b3b 100%);
+            radial-gradient(circle at top left, rgba(170, 105, 160, 0.3), transparent 55%),
+            radial-gradient(circle at bottom right, rgb(0, 255, 34, 0.2), transparent 55%),
+            linear-gradient(45deg, #202b3b 0%, #29394b 50%, #202b3b 100%);
       background-repeat: no-repeat;
       background-attachment: fixed;
-      animation: background-arrive 900ms ease-out both;
+      animation: background-arrive 1s ease-in-out both;
 }
 .button-menu{
       color: #f4f7fb;
-      background-color: rgba(255, 255, 255, 0.08);
-      border-radius: 1.2rem;
+      background-color: rgba(255, 255, 255, 0.04);
+      border-radius: 1rem;
       font-size: medium;
       width: 12rem;
       height: 3.5rem;
       box-sizing: content-box;
       align-self: center;
-      border-color: rgba(245, 245, 245, 0.293);
-      box-shadow: 0 0.2rem;
+      border-color: rgba(245, 245, 245, 0.1);
+      box-shadow: 0 0.04rem 0 0.03rem;
       cursor: pointer;
       transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
       
 }
 .button-menu:hover{
-      background-color: rgba(245, 245, 245, 0.397);
+      background-color: rgba(245, 245, 245, 0.5);
       border-radius: 1rem;
-      font-size: medium;
+      font-size: large;
+      font-weight: 900;
+      color: greenyellow;
       width: 12rem;
-      height: 5rem;
+      height: 4.5rem;
       box-sizing: content-box;
       align-self: center;
       border-color: whitesmoke;
       box-shadow: 0 0.25rem;
-      transform: translateY(-0.35rem);
+      transform: translateY(0.2rem);
 }
 .button-menu:active{
       transform: scale(0.98);
@@ -131,13 +134,16 @@ body{
       text-align: center;
 }
 .title{
-      color: #f4f7fb;
+      color: whitesmoke;
       font-size: xx-large;
       box-sizing: content-box;
       align-self: center;
-      background-color: rgba(255, 255, 255, 0.08);
-      padding: 1rem;
-      border-radius: 4rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: rgb(245, 245, 245, 0.2);
+      border-style: groove;
+      border-width: 0.1rem;
+      padding: 1.5rem;
+      border-radius: 5rem;
       animation: title-arrive 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 a{
@@ -151,7 +157,9 @@ a{
       height: 2rem;
       box-sizing: content-box;
       border-color: rgba(245, 245, 245, 0.293);
-      box-shadow: 0 0.125rem;
+      border-style: groove;
+      border-width: 0.1rem;
+      box-shadow: 0 0.035rem whitesmoke;
       position: fixed;
       top: 0;
       left: 0;
@@ -173,17 +181,19 @@ a{
       box-sizing: content-box;
       display: flex;
       overflow-y: scroll;
+      scrollbar-width: none;
       overflow-x: hidden;
       justify-content: flex-start;
       border-radius: 1.5rem;
       flex-direction: column;
       padding: 1rem;
-      
       height: auto;
-      max-height: 55vh;
+      max-height: 50vh;
       gap: 0.75rem;
-      
       background-color: rgba(245, 245, 245, 0.1);
+      border-color: rgb(245, 245, 245, 0.5);
+      border-width: 0.01rem;
+      border-style: groove;
 }
 .history-button{
       font-size: large;
@@ -204,17 +214,17 @@ a{
       justify-content: space-between;
       border-radius: 1.5rem;
       flex-direction: row;
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
       height: auto;
       align-items: center;
       animation: reveal 1s ease-in-out both;
       animation-timeline: view();
-      animation-range: entry 10% cover 30%;
+      animation-range: entry 10% cover 15%;
 }
 @keyframes reveal {
       from {
             opacity: 0;
-            transform: translateY(3rem);
+            transform: translateY(2rem);
       } 
       to {
             opacity: 1;
@@ -313,14 +323,17 @@ a{
       box-sizing: border-box;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.35rem 0.75rem;
+      gap: 0.35rem 0.7rem;
       color: white;
       transition: background-color 220ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .history-obj:hover{
-      background-color: #9c12b2;
+      background-color: rgb(156, 18, 178);
       box-shadow: 0 0.4rem 1rem rgba(15, 5, 35, 0.22);
-      transform: translateY(-0.125rem);
+      border-width: 0.2rem;
+      border-style: solid;
+      border-color: rgb(173, 255, 47, 0.8);
+      transform: translateY(-0.5rem);
 }
 .history-obj:active{
       transform: scale(0.99);
@@ -384,18 +397,18 @@ a{
 .findings-list{
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 3rem;
 }
 .finding-card{
-      padding: 1rem;
+      padding: 2rem;
       color: #111;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 1rem;
+      background-color: rgba(245, 245, 245, 0.9);
+      border-radius: 2rem;
       overflow-wrap: anywhere;
       transition: box-shadow 220ms ease, transform 220ms ease;
 }
 .detail-page .findings-list > *{
-      animation: reveal 0.5s ease-in-out both;
+      animation: reveal 0.8s ease-in-out both;
       animation-timeline: view();
       animation-range: entry 10% cover 15%;
 }
@@ -411,10 +424,11 @@ a{
       font-weight: 600;
 }
 .finding-text{
-      margin: 0.75rem 0;
+      margin: 1rem 0;
       padding: 0.75rem;
-      border-left: 0.1875rem solid #8c00ff;
-      background: rgba(140, 0, 255, 0.08);
+      border-left: 0.5rem solid #8c00ff;
+      background: rgba(255, 0, 0, 0.15);
+      border-radius: 0.5rem;
 }
 body.detail-document{
       width: min(56rem, 100%);
@@ -447,7 +461,7 @@ body.detail-document .page-content .title{
       to{opacity:1;transform:translateY(0) scale(1)}
 }
 @keyframes card-arrive{
-      from{opacity:0;transform:translateY(0.5rem) scale(0.99)}
+      from{opacity:0;transform:translateY(0.85rem) scale(0.99)}
       to{opacity:1;transform:translateY(0) scale(1)}
 }
 @keyframes document-scan{

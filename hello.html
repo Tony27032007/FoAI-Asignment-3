@@ -9,8 +9,14 @@
       <div class="menu">
             <h1 class="title">T&C Flagger</h1>
             <a><button id="scan-now" class="button-menu" type="button">Scan Now</button></a>
-            <a href="setting.html"><button class="button-menu">Setting</button></a>
-            <a href="history.html"><button class="button-menu">History</button></a>
+            <div id="scan-progress" class="scan-progress" role="status" aria-live="polite" hidden>
+                  <div class="scan-document" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span>
+                  </div>
+                  <p id="scan-progress-label">Reading page text...</p>
+            </div>
+            <a class="menu-link" href="setting.html"><button class="button-menu">Setting</button></a>
+            <a class="menu-link" href="history.html"><button class="button-menu">History</button></a>
       </div>
       <script src="storage.js"></script>
       <script src="extension-api.js"></script>

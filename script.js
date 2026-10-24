@@ -1,4 +1,7 @@
 const scanButton = document.querySelector("#scan-now");
+const menu = document.querySelector(".menu");
+const scanProgress = document.querySelector("#scan-progress");
+const scanProgressLabel = document.querySelector("#scan-progress-label");
 
 function createScanId() {
   if (globalThis.crypto?.randomUUID) {
@@ -15,6 +18,12 @@ function createScanId() {
 scanButton?.addEventListener("click", async () => {
   scanButton.disabled = true;
   scanButton.textContent = "Scanning...";
+  menu?.classList.add("is-scanning");
+  menu?.setAttribute("aria-busy", "true");
+  scanProgress?.removeAttribute("hidden");
+  if (scanProgressLabel) {
+    scanProgressLabel.textContent = "Reading page text...";
+  }
 
   try {
     const tab = await queryActiveTab();
@@ -27,6 +36,9 @@ scanButton?.addEventListener("click", async () => {
       throw new Error("No readable page text was found.");
     }
 
+    if (scanProgressLabel) {
+      scanProgressLabel.textContent = "Analyzing terms with Legal-BERT and Qwen...";
+    }
     const settings = await readSettings();
     let response;
     const requestController = new AbortController();
@@ -79,5 +91,8 @@ scanButton?.addEventListener("click", async () => {
   } finally {
     scanButton.disabled = false;
     scanButton.textContent = "Scan Now";
+    menu?.classList.remove("is-scanning");
+    menu?.removeAttribute("aria-busy");
+    scanProgress?.setAttribute("hidden", "");
   }
 });

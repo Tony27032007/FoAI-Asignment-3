@@ -6,14 +6,15 @@ body{
       overflow: hidden;
       box-sizing: border-box;
       background:
-            linear-gradient(45deg, rgba(232, 88, 228, 0.95) 0%, rgba(177, 64, 170, 0.8) 18%, rgba(78, 71, 143, 0.75) 42%, rgba(18, 26, 41, 0.9) 68%, rgba(1, 3, 7, 0.75) 100%),
-            linear-gradient(315deg, #0044fd 0%, #0a2640 26%, #8c00ff 54%, #38255d 100%);
+            radial-gradient(ellipse at 15% 10%, rgba(105, 132, 170, 0.22), transparent 55%),
+            linear-gradient(145deg, #202b3b 0%, #29394b 52%, #202b3b 100%);
       background-repeat: no-repeat;
       background-attachment: fixed;
       animation: background-arrive 900ms ease-out both;
 }
 .button-menu{
-      background-color: rgba(245, 245, 245, 0.04);
+      color: #f4f7fb;
+      background-color: rgba(255, 255, 255, 0.08);
       border-radius: 1rem;
       font-size: medium;
       width: 12rem;
@@ -55,12 +56,85 @@ body{
       flex-direction: column;
       animation: page-arrive 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.menu.is-scanning{
+      justify-content: center;
+      gap: 1.25rem;
+}
+.menu.is-scanning .menu-link{
+      display: none;
+}
+.menu.is-scanning #scan-now{
+      border-color: rgba(255, 255, 255, 0.8);
+      background-color: rgba(245, 245, 245, 0.18);
+      box-shadow: 0 0.25rem 1rem rgba(245, 245, 245, 0.12);
+}
+.scan-progress{
+      width: 12rem;
+      display: flex;
+      align-self: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1rem;
+      box-sizing: border-box;
+      border: 0.0625rem solid rgba(255, 255, 255, 0.25);
+      border-radius: 1.25rem;
+      background: rgba(255, 255, 255, 0.1);
+      animation: card-arrive 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.scan-progress[hidden]{
+      display: none;
+}
+.scan-document{
+      position: relative;
+      width: 5rem;
+      height: 5.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      box-sizing: border-box;
+      overflow: hidden;
+      border: 0.0625rem solid rgba(255, 255, 255, 0.65);
+      border-radius: 0.5rem;
+      background: rgba(255, 255, 255, 0.14);
+}
+.scan-document span{
+      display: block;
+      width: 100%;
+      height: 0.2rem;
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.55);
+}
+.scan-document span:nth-child(2){
+      width: 75%;
+}
+.scan-document span:nth-child(4){
+      width: 85%;
+}
+.scan-document::after{
+      position: absolute;
+      right: 0;
+      left: 0;
+      height: 0.125rem;
+      content: "";
+      background: #f4ccff;
+      box-shadow: 0 0 0.8rem 0.25rem rgba(244, 204, 255, 0.8);
+      animation: document-scan 1.8s ease-in-out infinite;
+}
+.scan-progress p{
+      margin: 0;
+      color: white;
+      font-size: 0.9rem;
+      text-align: center;
+}
 .title{
-      color: black;
+      color: #f4f7fb;
       font-size: xx-large;
       box-sizing: content-box;
       align-self: center;
-      background-color: rgba(245, 245, 245, 0.1);
+      background-color: rgba(255, 255, 255, 0.08);
       padding: 1rem;
       border-radius: 4rem;
       animation: title-arrive 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -98,11 +172,16 @@ a{
       box-sizing: content-box;
       display: flex;
       overflow-y: scroll;
+      overflow-x: hidden;
       justify-content: flex-start;
       border-radius: 1.5rem;
       flex-direction: column;
       padding: 1rem;
-      height: 80vh;
+      
+      height: auto;
+      max-height: 55vh;
+      gap: 0.75rem;
+      
       background-color: rgba(245, 245, 245, 0.1);
 }
 .history-button{
@@ -201,7 +280,6 @@ a{
       margin: 0;
       padding: 2.5rem 0.75rem 0.75rem;
       box-sizing: border-box;
-      overflow-y: auto;
       animation: page-arrive 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .page-content .title{
@@ -210,12 +288,11 @@ a{
       margin: 1rem auto 1.5rem;
       text-align: center;
 }
-.page-content .history{
+.page-content{
       height: auto;
       max-height: none;
       gap: 0.75rem;
       padding: 0.5rem;
-      overflow: visible;
 }
 .page-content .his-div{
       width: 100%;
@@ -365,6 +442,10 @@ body.detail-document .page-content .title{
 @keyframes card-arrive{
       from{opacity:0;transform:translateY(0.5rem) scale(0.99)}
       to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes document-scan{
+      0%,100%{top:0.4rem;opacity:0.65}
+      50%{top:calc(100% - 0.5rem);opacity:1}
 }
 @media (prefers-reduced-motion: reduce){
       *:not(.his-div),*:not(.his-div)::before,*:not(.his-div)::after{

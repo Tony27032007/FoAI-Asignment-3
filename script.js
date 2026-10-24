@@ -1,48 +1,56 @@
 const scanButton = document.querySelector("#scan-now");
 
+function createScanId() {
+  if (globalThis.crypto?.randomUUID) {
+    return globalThis.crypto.randomUUID();
+  }
+  const bytes = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = [...bytes].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
 scanButton?.addEventListener("click", async () => {
   scanButton.disabled = true;
   scanButton.textContent = "Scanning...";
 
   try {
-    if (!globalThis.chrome?.tabs || !globalThis.chrome?.scripting) {
-      throw new Error("Open T&C Flagger from its Chrome extension button to scan the current page.");
-    }
-
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const tab = await queryActiveTab();
     if (!tab?.id) {
       throw new Error("Could not find the active tab to scan.");
     }
 
-    const [page] = await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: () => ({
-        title: document.title,
-        url: location.href,
-        text: (document.querySelector("main, article, [role='main']") ?? document.body)?.innerText ?? "",
-      }),
-    });
-    if (!page?.result?.text.trim()) {
+    const page = await readActiveTab(tab.id);
+    if (!page?.text.trim()) {
       throw new Error("No readable page text was found.");
     }
 
     const settings = await readSettings();
     let response;
+    const requestController = new AbortController();
+    const requestTimeout = setTimeout(() => requestController.abort(), 300000);
     try {
       response = await fetch("http://127.0.0.1:8080/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: page.result.title,
-          url: page.result.url,
-          text: page.result.text.slice(0, 250000),
+          title: page.title,
+          url: page.url,
+          text: page.text.slice(0, 250000),
           threshold: settings.threshold,
           qwen_analysis: settings.qwenAnalysis,
         }),
-        signal: AbortSignal.timeout(300000),
+        signal: requestController.signal,
       });
     } catch (error) {
+      if (error.name === "AbortError") {
+        throw new Error("The AI analysis timed out; try scanning a shorter page or disable Qwen explanations in Settings.");
+      }
       throw new Error(`Could not reach the AI service at 127.0.0.1:8080. Start the Docker stack and try again: ${error.message}`);
+    } finally {
+      clearTimeout(requestTimeout);
     }
 
     const result = await response.json();
@@ -51,9 +59,9 @@ scanButton?.addEventListener("click", async () => {
     }
 
     const historyItem = {
-      id: crypto.randomUUID(),
-      name: page.result.title?.trim() || new URL(page.result.url).hostname,
-      url: page.result.url,
+      id: createScanId(),
+      name: page.title?.trim() || new URL(page.url).hostname,
+      url: page.url,
       scannedAt: new Date().toISOString(),
       result,
     };
@@ -61,10 +69,10 @@ scanButton?.addEventListener("click", async () => {
     if (settings.saveHistory) {
       const history = await readHistory();
       await writeHistory([historyItem, ...history].slice(0, 100));
-      window.location.href = `history-detail.html?id=${encodeURIComponent(historyItem.id)}`;
+      await openExtensionPage(`history-detail.html?id=${encodeURIComponent(historyItem.id)}`);
     } else {
-      sessionStorage.setItem("tosFlaggerLatestScan", JSON.stringify(historyItem));
-      window.location.href = `history-detail.html?id=${encodeURIComponent(historyItem.id)}&latest=1`;
+      await writeStoredValue(TOS_FLAGGER_LATEST_SCAN_KEY, historyItem);
+      await openExtensionPage(`history-detail.html?id=${encodeURIComponent(historyItem.id)}&latest=1`);
     }
   } catch (error) {
     window.alert(error.message);

@@ -10,6 +10,7 @@ body{
             linear-gradient(315deg, #0044fd 0%, #0a2640 26%, #8c00ff 54%, #38255d 100%);
       background-repeat: no-repeat;
       background-attachment: fixed;
+      animation: background-arrive 900ms ease-out both;
 }
 .button-menu{
       background-color: rgba(245, 245, 245, 0.04);
@@ -21,19 +22,27 @@ body{
       align-self: center;
       border-color: rgba(245, 245, 245, 0.293);
       box-shadow: 0 0.125rem;
-      
+      cursor: pointer;
+      transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .button-menu:hover{
       background-color: rgba(245, 245, 245, 0.397);
       border-radius: 1rem;
-      font-size: large;
+      font-size: medium;
       width: 12rem;
-      height: 6rem;
+      height: 3.5rem;
       box-sizing: content-box;
       align-self: center;
       border-color: whitesmoke;
       box-shadow: 0 0.25rem;
-      
+      transform: translateY(-0.125rem);
+}
+.button-menu:active{
+      transform: scale(0.98);
+}
+.button-menu:focus-visible,.history-obj:focus-visible,.back-link:focus-visible{
+      outline: 0.125rem solid rgba(255, 255, 255, 0.9);
+      outline-offset: 0.2rem;
 }
 .menu{
       width: 15rem;
@@ -44,6 +53,7 @@ body{
       justify-content: space-evenly;
       border-radius: 1.5rem;
       flex-direction: column;
+      animation: page-arrive 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .title{
       color: black;
@@ -53,6 +63,7 @@ body{
       background-color: rgba(245, 245, 245, 0.1);
       padding: 1rem;
       border-radius: 4rem;
+      animation: title-arrive 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 a{
       align-self: center;
@@ -69,6 +80,7 @@ a{
       position: fixed;
       top: 0;
       left: 0;
+      transition: background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
 }
 .button-back:hover{
       background-color: rgba(245, 245, 245, 0.3);
@@ -80,6 +92,7 @@ a{
       border-color: rgba(245, 245, 245, 0.3);
       box-shadow: 0 0.25rem;
       position: fixed;
+      transform: translateY(-0.0625rem);
 }
 .history{
       box-sizing: content-box;
@@ -141,6 +154,7 @@ a{
       background-color: rgba(15, 17, 31, 0.55);
       border: 0.0625rem solid rgba(245, 245, 245, 0.25);
       border-radius: 1.25rem;
+      animation: card-arrive 650ms 100ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .settings-menu{
       width: 15rem;
@@ -157,6 +171,7 @@ a{
 .settings-panel input[type="range"]{
       width: 100%;
       accent-color: #e858e4;
+      cursor: pointer;
 }
 .setting-toggle{
       justify-content: flex-start !important;
@@ -173,6 +188,9 @@ a{
       color: white;
       cursor: pointer;
 }
+.settings-panel input[type="checkbox"]{
+      cursor: pointer;
+}
 .status-message{
       color: white;
       text-align: center;
@@ -184,6 +202,7 @@ a{
       padding: 2.5rem 0.75rem 0.75rem;
       box-sizing: border-box;
       overflow-y: auto;
+      animation: page-arrive 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .page-content .title{
       width: fit-content;
@@ -209,20 +228,35 @@ a{
       padding: 0.9rem 1rem;
       box-sizing: border-box;
       align-items: center;
-      gap: 1rem;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.75rem;
       color: white;
+      transition: background-color 220ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.history-obj:hover{
+      background-color: #9c12b2;
+      box-shadow: 0 0.4rem 1rem rgba(15, 5, 35, 0.22);
+      transform: translateY(-0.125rem);
+}
+.history-obj:active{
+      transform: scale(0.99);
 }
 .history-name{
-      flex: 1;
-      overflow-wrap: anywhere;
+      flex: 1 1 100%;
+      min-width: 0;
+      overflow-wrap: break-word;
       font-weight: 600;
 }
 .history-date{
+      flex: 1 1 auto;
+      min-width: 0;
       color: rgba(255, 255, 255, 0.8);
       font-size: small;
-      text-align: right;
+      overflow-wrap: anywhere;
+      text-align: left;
 }
 .history-arrow{
+      flex: 0 0 auto;
       font-size: x-large;
 }
 .back-link{
@@ -274,6 +308,16 @@ a{
       background: rgba(255, 255, 255, 0.9);
       border-radius: 1rem;
       overflow-wrap: anywhere;
+      transition: box-shadow 220ms ease, transform 220ms ease;
+}
+.detail-page .findings-list > *{
+      animation: reveal 0.5s ease-in-out both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 15%;
+}
+.finding-card:hover{
+      box-shadow: 0 0.5rem 1.5rem rgba(12, 4, 30, 0.2);
+      transform: translateY(-0.125rem);
 }
 .finding-heading{
       margin-top: 0;
@@ -287,4 +331,46 @@ a{
       padding: 0.75rem;
       border-left: 0.1875rem solid #8c00ff;
       background: rgba(140, 0, 255, 0.08);
+}
+body.detail-document{
+      width: min(56rem, 100%);
+      height: 100vh;
+      min-height: 100vh;
+      margin: 0 auto;
+      overflow: auto;
+}
+body.detail-document .page-content{
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      overflow: visible;
+}
+body.detail-document .page-content .title{
+      max-width: 100%;
+}
+@keyframes background-arrive{
+      from{opacity:0.82}
+      to{opacity:1}
+}
+@keyframes page-arrive{
+      from{opacity:0;transform:translateY(0.5rem)}
+      to{opacity:1;transform:translateY(0)}
+}
+@keyframes title-arrive{
+      from{opacity:0;transform:translateY(0.35rem) scale(0.98)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes card-arrive{
+      from{opacity:0;transform:translateY(0.5rem) scale(0.99)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+}
+@media (prefers-reduced-motion: reduce){
+      *:not(.his-div),*:not(.his-div)::before,*:not(.his-div)::after{
+            scroll-behavior:auto !important;
+            animation-duration:0.01ms !important;
+            animation-iteration-count:1 !important;
+            transition-duration:0.01ms !important;
+      }
 }

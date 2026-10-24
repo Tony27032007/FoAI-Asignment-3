@@ -67,3 +67,8 @@ Stops the NVIDIA AI containers.
 chrome://extensions
 ```
 Enables loading the project folder as an unpacked Chrome extension so Scan Now can access the active tab.
+
+```sh
+xcrun safari-web-extension-converter . --project-location ../FoAI-Asignment-3-Safari
+```
+Creates the Safari Web Extension Xcode project; open it in Xcode, run the macOS host app, then enable the extension in Safari Settings.

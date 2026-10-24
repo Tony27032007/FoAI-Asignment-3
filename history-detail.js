@@ -16,7 +16,7 @@ async function renderScanDetails() {
     const params = new URLSearchParams(window.location.search);
     const history = await readHistory();
     const item = params.get("latest") === "1"
-      ? JSON.parse(sessionStorage.getItem("tosFlaggerLatestScan") ?? "null")
+      ? await readStoredValue(TOS_FLAGGER_LATEST_SCAN_KEY, null)
       : history.find((entry) => entry.id === params.get("id"));
     if (!item) {
       throw new Error("That scan was not found. Check whether history saving is enabled in Settings.");
@@ -30,6 +30,9 @@ async function renderScanDetails() {
     }
     if (result.summary) {
       addTextElement(findings, "p", "analysis-summary", result.summary);
+    }
+    if (result.qwen_error) {
+      addTextElement(findings, "p", "warning-message", `Qwen explanation unavailable: ${result.qwen_error}`);
     }
     if (result.findings.length === 0) {
       addTextElement(findings, "p", "empty-state", "No clauses exceeded the selected confidence threshold.");
@@ -49,6 +52,9 @@ async function renderScanDetails() {
         addTextElement(card, "p", "finding-explanation", finding.explanation);
       }
       findings.append(card);
+    }
+    if (params.get("latest") === "1") {
+      await removeStoredValue(TOS_FLAGGER_LATEST_SCAN_KEY);
     }
   } catch (error) {
     if (!detailStatus.textContent) {

@@ -13,6 +13,8 @@ async function renderHistory() {
         const link = document.createElement("a");
         link.className = "history-obj";
         link.href = `history-detail.html?id=${encodeURIComponent(item.id)}`;
+        link.target = "_blank";
+        link.rel = "noopener";
 
         const name = document.createElement("span");
         name.className = "history-name";

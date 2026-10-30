@@ -74,10 +74,7 @@ npm run ai:down:nvidia
 
 ## Extension
 ### Google Chrome
-Enables loading the project folder as an unpacked Chrome extension so Scan Now can access the active tab.
-```text
-chrome://extensions
-```
+Go to `chrome://extensions` and turn the `Developer Mode` : ****On****. Then load the extension (whole repo folder) using `Load unpacked`.
 
 ### Apple Safari
 You need

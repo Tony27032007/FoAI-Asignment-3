@@ -1,21 +1,23 @@
 ## CPU / Apple Silicon
-
+****Start the AI****
 ```sh
-
-docker compose up --build -d
-docker compose run --rm api python -m ai.train && docker compose restart api
+npm run ai:up
+```
+---
+****Train the AI**** (the AI need to be trained before the extension can be used)
+```sh
+npm run ai:train
+```
+---
+Start the server on port 3000 at `http://127.0.0.1:3000`. (The extension need this in order to talk to the AI on port `8080`)
+```sh
 npm start
 ```
-Starts the local extension preview at `http://127.0.0.1:3000`.
-Builds and starts the Legal-BERT API and Qwen Ollama containers on port 8080.
 
-```sh
-docker compose run --rm api python -m ai.train && docker compose restart api
-```
 Fine-tunes Legal-BERT on UNFAIR-ToS with an 80/10/10 split and prints test recall and F2-score.
 
 ```sh
-docker compose exec qwen ollama pull qwen2.5:14b-instruct-q4_K_M
+npm run ai:pull-qwen
 ```
 Downloads Qwen 2.5 14B Instruct into the running Ollama container.
 
